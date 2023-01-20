@@ -12,7 +12,7 @@ This weather dashboard allows the user to search for a city or region they wish 
 ## Installation
 
 <a href="">Link to Page</a>
-<a href="">Link to Respository</a>
+<a href="https://github.com/FrancisLao9/Weather-Dashboard">Link to Respository</a>
 
 ## Usage
 

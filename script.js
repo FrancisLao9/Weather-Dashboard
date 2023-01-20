@@ -59,7 +59,7 @@ function renderCurrentWeather(city, weather) {
   var windMph = weather.wind.speed;
   var humidity = weather.main.humidity;
   var iconUrl = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
-  var iconDescription = weather.weather[0].description || weather[0].main;
+  var iconDesc = weather.weather[0].description || weather[0].main;
 
   var card = document.createElement('div');
   var cardBody = document.createElement('div');
@@ -80,7 +80,7 @@ function renderCurrentWeather(city, weather) {
 
   heading.textContent = `${city} (${date})`;
   weatherIcon.setAttribute('src', iconUrl);
-  weatherIcon.setAttribute('alt', iconDescription);
+  weatherIcon.setAttribute('alt', iconDesc);
   weatherIcon.setAttribute('class', 'weather-img');
   heading.append(weatherIcon);
   tempEl.textContent = `Temp: ${tempF}°F`;
@@ -92,12 +92,11 @@ function renderCurrentWeather(city, weather) {
   todayContainer.append(card);
 }
 
-// Function to display a forecast card given an object from open weather api
-// daily forecast.
+// Function to display a forecast card 
 function forecastCard(forecast) {
   // variables for data from api
   var iconUrl = `https://openweathermap.org/img/w/${forecast.weather[0].icon}.png`;
-  var iconDescription = forecast.weather[0].description;
+  var iconDesc = forecast.weather[0].description;
   var tempF = forecast.main.temp;
   var humidity = forecast.main.humidity;
   var windMph = forecast.wind.speed;
@@ -125,10 +124,9 @@ function forecastCard(forecast) {
   windEl.setAttribute('class', 'card-text');
   humidityEl.setAttribute('class', 'card-text');
 
-  // Add content to elements
   cardTitle.textContent = dayjs(forecast.dt_txt).format('M/D/YYYY');
   weatherIcon.setAttribute('src', iconUrl);
-  weatherIcon.setAttribute('alt', iconDescription);
+  weatherIcon.setAttribute('alt', iconDesc);
   tempEl.textContent = `Temp: ${tempF} °F`;
   windEl.textContent = `Wind: ${windMph} MPH`;
   humidityEl.textContent = `Humidity: ${humidity} %`;
