@@ -4,9 +4,9 @@ var weatherApiKey = 'd91f911bcf2c0f925fb6535547a5ddc9';
 
 var searchForm = document.querySelector('#search-form');
 var searchInput = document.querySelector('#search-input');
-var todayContainer = document.querySelector('#today');
-var forecastContainer = document.querySelector('#forecast');
-var searchHistoryContainer = document.querySelector('#history');
+var todaySlot = document.querySelector('#today');
+var forecastSlot = document.querySelector('#forecast');
+var searchHistorySlot = document.querySelector('#history');
 
 // Timezone plugins to day.js
 dayjs.extend(window.dayjs_plugin_utc);
@@ -16,7 +16,7 @@ var searchHistory = [];
 
 // Display search history list.
 function renderSearchHistory() {
-  searchHistoryContainer.innerHTML = '';
+  searchHistorySlot.innerHTML = '';
 
   // Start at end of history array and count down to show the most recent at the top.
   for (var i = searchHistory.length - 1; i >= 0; i--) {
@@ -26,7 +26,7 @@ function renderSearchHistory() {
     // `data-search` allows access to city name when click handler is invoked
     btn.setAttribute('data-search', searchHistory[i]);
     btn.textContent = searchHistory[i];
-    searchHistoryContainer.append(btn);
+    searchHistorySlot.append(btn);
   }
 }
 
@@ -37,7 +37,6 @@ function appendToHistory(search) {
     return;
   }
   searchHistory.push(search);
-
   localStorage.setItem('search-history', JSON.stringify(searchHistory));
   renderSearchHistory();
 }
@@ -72,12 +71,10 @@ function renderCurrentWeather(city, weather) {
   card.setAttribute('class', 'card');
   cardBody.setAttribute('class', 'card-body');
   card.append(cardBody);
-
   heading.setAttribute('class', 'h3 card-title');
   tempEl.setAttribute('class', 'card-text');
   windEl.setAttribute('class', 'card-text');
   humidityEl.setAttribute('class', 'card-text');
-
   heading.textContent = `${city} (${date})`;
   weatherIcon.setAttribute('src', iconUrl);
   weatherIcon.setAttribute('alt', iconDesc);
@@ -88,8 +85,8 @@ function renderCurrentWeather(city, weather) {
   humidityEl.textContent = `Humidity: ${humidity} %`;
   cardBody.append(heading, tempEl, windEl, humidityEl);
 
-  todayContainer.innerHTML = '';
-  todayContainer.append(card);
+  todaySlot.innerHTML = '';
+  todaySlot.append(card);
 }
 
 // Function to display a forecast card 
@@ -131,7 +128,7 @@ function forecastCard(forecast) {
   windEl.textContent = `Wind: ${windMph} MPH`;
   humidityEl.textContent = `Humidity: ${humidity} %`;
 
-  forecastContainer.append(col);
+  forecastSlot.append(col);
 }
 
 // Displays 5 day forecast
@@ -146,8 +143,8 @@ function forecast(dailyForecast) {
   headingColumn.setAttribute('class', 'col-12');
   headingColumn.append(heading);
 
-  forecastContainer.innerHTML = '';
-  forecastContainer.append(headingColumn);
+  forecastSlot.innerHTML = '';
+  forecastSlot.append(headingColumn);
 
   for (var i = 0; i < dailyForecast.length; i++) {
 
@@ -227,4 +224,4 @@ function historyClick(e) {
 
 initSearchHistory();
 searchForm.addEventListener('submit', searchFunction);
-searchHistoryContainer.addEventListener('click', historyClick);
+searchHistorySlot.addEventListener('click', historyClick);
