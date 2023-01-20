@@ -61,7 +61,7 @@ function renderCurrentWeather(city, weather) {
   var iconDesc = weather.weather[0].description || weather[0].main;
 
   var card = document.createElement('div');
-  var cardBody = document.createElement('div');
+  var body = document.createElement('div');
   var heading = document.createElement('h2');
   var weatherIcon = document.createElement('img');
   var tempEl = document.createElement('p');
@@ -69,8 +69,8 @@ function renderCurrentWeather(city, weather) {
   var humidityEl = document.createElement('p');
 
   card.setAttribute('class', 'card');
-  cardBody.setAttribute('class', 'card-body');
-  card.append(cardBody);
+  body.setAttribute('class', 'card-body');
+  card.append(body);
   heading.setAttribute('class', 'h3 card-title');
   tempEl.setAttribute('class', 'card-text');
   windEl.setAttribute('class', 'card-text');
@@ -83,7 +83,7 @@ function renderCurrentWeather(city, weather) {
   tempEl.textContent = `Temp: ${tempF}°F`;
   windEl.textContent = `Wind: ${windMph} MPH`;
   humidityEl.textContent = `Humidity: ${humidity} %`;
-  cardBody.append(heading, tempEl, windEl, humidityEl);
+  body.append(heading, tempEl, windEl, humidityEl);
 
   todaySlot.innerHTML = '';
   todaySlot.append(card);
@@ -101,31 +101,36 @@ function forecastCard(forecast) {
   // Elements for card
   var col = document.createElement('div');
   var card = document.createElement('div');
-  var cardBody = document.createElement('div');
-  var cardTitle = document.createElement('h5');
+  var body = document.createElement('div');
+  var title = document.createElement('h5');
   var weatherIcon = document.createElement('img');
   var tempEl = document.createElement('p');
   var windEl = document.createElement('p');
   var humidityEl = document.createElement('p');
 
   col.append(card);
-  card.append(cardBody);
-  cardBody.append(cardTitle, weatherIcon, tempEl, windEl, humidityEl);
-
   col.setAttribute('class', 'col-md');
   col.classList.add('five-day-card');
-  card.setAttribute('class', 'card bg-primary h-100 text-white');
-  cardBody.setAttribute('class', 'card-body p-2');
-  cardTitle.setAttribute('class', 'card-title');
-  tempEl.setAttribute('class', 'card-text');
-  windEl.setAttribute('class', 'card-text');
-  humidityEl.setAttribute('class', 'card-text');
 
-  cardTitle.textContent = dayjs(forecast.dt_txt).format('M/D/YYYY');
+  card.append(body);
+  card.setAttribute('class', 'card bg-primary h-100 text-white');
+
+  body.append(title, weatherIcon, tempEl, windEl, humidityEl);
+  body.setAttribute('class', 'card-body p-2');
+
+  title.setAttribute('class', 'card-title');
+  title.textContent = dayjs(forecast.dt_txt).format('M/D/YYYY');
+
   weatherIcon.setAttribute('src', iconUrl);
   weatherIcon.setAttribute('alt', iconDesc);
+
+  tempEl.setAttribute('class', 'card-text');
   tempEl.textContent = `Temp: ${tempF} °F`;
+
+  windEl.setAttribute('class', 'card-text');
   windEl.textContent = `Wind: ${windMph} MPH`;
+
+  humidityEl.setAttribute('class', 'card-text');
   humidityEl.textContent = `Humidity: ${humidity} %`;
 
   forecastSlot.append(col);
@@ -137,14 +142,14 @@ function forecast(dailyForecast) {
   var startDt = dayjs().add(1, 'day').startOf('day').unix();
   var endDt = dayjs().add(6, 'day').startOf('day').unix();
 
-  var headingColumn = document.createElement('div');
+  var headingCol = document.createElement('div');
   var heading = document.createElement('h4');
 
-  headingColumn.setAttribute('class', 'col-12');
-  headingColumn.append(heading);
+  headingCol.setAttribute('class', 'col-12');
+  headingCol.append(heading);
 
   forecastSlot.innerHTML = '';
-  forecastSlot.append(headingColumn);
+  forecastSlot.append(headingCol);
 
   for (var i = 0; i < dailyForecast.length; i++) {
 
